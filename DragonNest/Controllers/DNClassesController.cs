@@ -109,12 +109,24 @@ namespace DragonNest.Controllers
 
             var skills = _context.Skills.Include(s => s.DNClass).AsNoTracking().Where(c => c.DNClassID == id);
 
+            var sk = (from c in _context.DNClasses
+                      join s in _context.Skills
+                      on c.ClassName equals s.DNClassID
+                      where c.ClassName == id
+                      select new
+                      {
+                          ID = s.ID,
+                          Name = s.Name,
+                          DMG = s.DMG,
+                          Special = s.Special,
+                          DNClassID = s.DNClassID
+                      }).ToList();
             if (skills == null)
             {
                 return NotFound();
             }
 
-            return Ok(skills);
+            return Ok(sk);
         }
 
         // PUT: api/DNClasses/5
