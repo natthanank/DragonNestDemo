@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript" src="instascan.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+</head>
+<body>
+    <h1>Scan QR Code!!!!!!!!</h1>
+    <video id="preview"></video>
+<script>
+    $(document).ready(function() {
+        var session_id = getParameterByName('session_id');
+
+        var scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+        scanner.addListener('scan', function (content) {
+                console.log(content);
+                var user_id = getParameterByName('user_id', content);
+                var register_request = {
+                    "userID": user_id,
+                    "sessionID": session_id
+                };
+                register(register_request);
+            });
+            Instascan.Camera.getCameras().then(function (cameras) {
+                if (cameras.length > 0) {
+                scanner.start(cameras[0]);
+                } else {
+                console.error('No cameras found.');
+                }
+            }).catch(function (e) {
+                console.error(e);
+            });
+
+    });
+
+    function register(register_request) {
+        $.ajax({
+        type: 'POST',
+        accepts: 'application/json',
+        url: 'api/UserSessions',
+        contentType: 'application/json',
+        data: JSON.stringify(register_request),
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('here');
+        },
+        success: function (result) {
+            alert('... Successful');
+        }
+    });
+    }
+
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+    </script>
+</body>
+</html>

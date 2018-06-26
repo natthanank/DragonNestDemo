@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using DragonNest.Models;
+using DragonNest.Data;
 
 namespace DragonNest
 {
@@ -29,11 +30,14 @@ namespace DragonNest
             services.AddDbContext<DragonNestContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("DragonNestContext")));
 
+            services.AddDbContext<UserSessionContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("UserSessionContext")));
+
             services.AddMvc();
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowSpecificOrigins",
-                    builder => builder.WithOrigins("http://localhost:4200"));
+                    builder => builder.WithOrigins("*"));
             });
         }
 
