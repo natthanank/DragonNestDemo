@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using DragonNest.Data;
 using DragonNest.Models;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -23,7 +24,7 @@ namespace DragonNest
                 var services = scope.ServiceProvider;
                 try
                 {
-                    var context = services.GetRequiredService<DragonNestContext>();
+                    var context = services.GetRequiredService<UserSessionContext>();
                     context.Database.EnsureCreated();
                 }
                 catch (Exception ex)

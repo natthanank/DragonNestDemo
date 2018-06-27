@@ -118,7 +118,7 @@ namespace DragonNest.Controllers
 
         // POST: api/DNClasses
         [HttpPost]
-        public async Task<IActionResult> PostUserSession([FromBody] UserSession userSession)
+        public ActionResult PostUserSession([FromBody] UserSession userSession)
         {
             //if (!ModelState.IsValid)
             //{
@@ -128,7 +128,8 @@ namespace DragonNest.Controllers
             try
             {
                 _context.UserSessions.Add(userSession);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
+                return Json(userSession);
             } catch (Exception e)
             {
                
