@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <script type="text/javascript" src="instascan.min.js"></script>
+    <script type="text/javascript" src="js/instascan.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     
 </head>
@@ -19,7 +19,7 @@
         var scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
         scanner.addListener('scan', function (content) {
                 console.log(content);
-                var user_id = getParameterByName('user_id', content);
+                var user_id = getParameterByName('id', content);
                 var register_request = {
                     "userID": user_id,
                     "sessionID": session_id
