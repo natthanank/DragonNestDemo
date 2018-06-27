@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <link href="css/myCustom.css" rel="stylesheet" />
+</head>
+<body class="gray-bg">
+    <div class="wrapper">
+        <h1>เลือก Session</h1>
+        <div class="row">
+            <div class="col-md-5 col-xs-5 col-lg-5">
+                <select name="session" id="session">
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-xs-3 col-lg-3 col-md-offset-1 col-xs-offset-1 col-lg-offset-1">
+                <button id="session" class="b-r-xs bg-success" onclick="next()">Next</button>
+            </div>
+        </div>
+        
+
+        
+    </div>
+    
+
+    <!-- Mainly scripts -->
+    <script type="text/javascript" src="js/instascan.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            console.log(formatDate(new Date));
+        });
+
+
+        function next() {
+            var session = document.getElementById('session');
+            var session_id = session.options[session.selectedIndex].value;
+            window.location.replace("scan.html?session_id=" + session_id);
+        }
+
+        function formatDate(date) {
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var ampm = hours >= 12 ? 'pm' : 'am';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            var strTime = hours + ':' + minutes + ' ' + ampm;
+            return date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear() + "  " + strTime;
+        }
+
+    </script>
+</body>
+</html>

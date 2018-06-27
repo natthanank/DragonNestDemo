@@ -1,0 +1,9 @@
+﻿#session {
+    width: 100%;
+    margin-top: 10%;
+}
+
+#preview {
+    height:70% !important;
+    width: 60% !important;
+}
